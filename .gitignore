@@ -1,0 +1,11 @@
+*
+!*.gitignore
+!*.gitattributes
+!*Readme.md
+!Assets/
+!Assets/**
+!Packages/
+!Packages/**
+!ProjectSettings/
+!ProjectSettings/**
+*Assets/Shapes
