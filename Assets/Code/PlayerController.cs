@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        body.velocity = new Vector3(move.x, 0, 0) * moveSpeed;
+        body.velocity = new Vector3(move.x * moveSpeed, body.velocity.y, 0.0f);
     }
 
     public void OnMove(InputAction.CallbackContext ctx) {
@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void OnJump(InputAction.CallbackContext ctx) {
-        Debug.Log("hello");
         body.velocity = new Vector3(body.velocity.x, jumpStrength, 0.0f);
     }
 }

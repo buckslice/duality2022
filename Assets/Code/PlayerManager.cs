@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -52,21 +53,25 @@ public class PlayerManager : MonoBehaviour {
         Destroy(p1);
         Destroy(p2);
 
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
 
     void ConvertToPlay(PlayerUIController uiplayer) {
-
-        uiplayer.input.transform.position = uiplayer.curPrefab.transform.position;
-
         uiplayer.input.SwitchCurrentActionMap("Player");
-        var c = Instantiate(controllerPrefab, uiplayer.input.transform, false);
-        uiplayer.curPrefab.transform.SetParent(c.transform, false);
-        var pc = c.GetComponent<PlayerController>();
+
+        // new controller
+        var cont = Instantiate(controllerPrefab);
+        cont.transform.position = uiplayer.curPrefab.transform.position;
+        uiplayer.curPrefab.transform.SetParent(cont.transform, false);
+        uiplayer.input.transform.SetParent(cont.transform, false);
+        var pc = cont.GetComponent<PlayerController>();
         pc.SetInput(uiplayer.input);
 
-        pc.transform.localPosition = Vector3.zero;
-        uiplayer.curPrefab.transform.localPosition = Vector3.zero;
+        Camera.main.GetComponent<CameraFollow>().AddTarget(cont.transform);
 
+        // make sure these zerod
+        uiplayer.input.transform.localPosition = Vector3.zero;
+        uiplayer.curPrefab.transform.localPosition = Vector3.zero;
     }
 
 }
