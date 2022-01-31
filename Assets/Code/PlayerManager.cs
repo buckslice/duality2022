@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public void OnPlay() {
-        GameObject.Find("Canvas").SetActive(false);
+        GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(false);
 
         ConvertToPlay(p1);
         ConvertToPlay(p2);
@@ -66,6 +66,12 @@ public class PlayerManager : MonoBehaviour {
         uiplayer.input.transform.SetParent(cont.transform, false);
         var pc = cont.GetComponent<PlayerController>();
         pc.SetInput(uiplayer.input);
+
+        // set depth and facing
+        var srs = pc.GetComponentsInChildren<SpriteRenderer>();
+        foreach(var sr in srs) {
+            sr.sortingOrder = uiplayer.layerDepth;
+        }
 
         Camera.main.GetComponent<CameraFollow>().AddTarget(cont.transform);
 

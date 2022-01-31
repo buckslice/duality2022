@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   jumpStrength: 8
+  move: {x: 0, y: 0}
+  joinParticles: {fileID: 8126459539196083322, guid: 6870e0894e61395439b2d740545e6f5a, type: 3}
+  offer: 0
 --- !u!50 &2376837331552119760
 Rigidbody2D:
   serializedVersion: 4

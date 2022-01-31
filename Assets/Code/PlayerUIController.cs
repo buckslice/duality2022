@@ -9,6 +9,8 @@ public class PlayerUIController : MonoBehaviour {
 
     public GameObject[] playerPrefabs;
     int prefabIndex = 0;
+    public int layerDepth = 0;
+    public bool facing = true;
     public GameObject curPrefab { get; private set; } = null;
 
     public PlayerInput input { get; private set; }
@@ -33,7 +35,6 @@ public class PlayerUIController : MonoBehaviour {
         SetAction(input);
         if (!curPrefab) {
             SpawnPrefab();
-            SpawnPrefab();
         }
     }
 
@@ -52,6 +53,9 @@ public class PlayerUIController : MonoBehaviour {
         Vector3 v = Camera.main.ScreenToWorldPoint(spawn.position);
         v.z = 0.0f;
         curPrefab = Instantiate(playerPrefabs[prefabIndex], v, Quaternion.identity);
+        if (!facing) {
+            curPrefab.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     public bool locked { get; private set; } = false;
